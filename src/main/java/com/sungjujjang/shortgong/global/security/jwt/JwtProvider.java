@@ -42,10 +42,10 @@ public class JwtProvider {
         Date expiry = new Date(now.getTime() + accessTokenExpiration);
 
         return Jwts.builder()
-                .setSubject(String.valueOf(id))
+                .subject(String.valueOf(id))
                 .claim("role", role)
-                .setIssuedAt(now)
-                .setExpiration(expiry)
+                .issuedAt(now)
+                .expiration(expiry)
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
