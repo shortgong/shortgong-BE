@@ -3,12 +3,12 @@ package com.sungjujjang.shortgong.domain.auth.entity;
 import com.sungjujjang.shortgong.domain.auth.enums.Role;
 import com.sungjujjang.shortgong.global.entity.BaseEntity;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Getter
+@AllArgsConstructor
+@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "member")
 public class Member extends BaseEntity {
@@ -17,7 +17,7 @@ public class Member extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String username;
 
     @Enumerated(EnumType.STRING)
@@ -26,7 +26,4 @@ public class Member extends BaseEntity {
 
     @Column(nullable = true)
     private String profileImageUrl;
-
-    @Column(nullable = false)
-    private String password;
 }
