@@ -30,5 +30,5 @@ spring:
       ddl-auto: update
     show-sql: true
 jwt:
-  expiration_time: 86400000
+  expiration_time: 900000
   secret: ${JWT_SECRET}
