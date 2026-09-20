@@ -3,6 +3,7 @@ package com.sungjujjang.shortgong.domain.auth.controller;
 import com.sungjujjang.shortgong.domain.auth.dto.response.AccessTokenResponse;
 import com.sungjujjang.shortgong.domain.auth.dto.response.TokenResponse;
 import com.sungjujjang.shortgong.domain.auth.service.TokenService;
+import com.sungjujjang.shortgong.global.exception.exceptions.ForbiddenRefreshTokenException;
 import com.sungjujjang.shortgong.global.response.ApiResponse;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -38,6 +39,9 @@ public class TokenController {
             @CookieValue(name = "refreshToken", required = false) String refreshToken,
             HttpServletResponse httpServletResponse
     ) {
+        if (refreshToken == null) {
+            throw ForbiddenRefreshTokenException.EXCEPTION;
+        }
         TokenResponse tokenResponse = tokenService.refreshToken(refreshToken);
         AccessTokenResponse accessTokenResponse = new AccessTokenResponse(tokenResponse.accessToken());
 
