@@ -1,0 +1,46 @@
+package com.sungjujjang.shortgong.domain.video.entity;
+
+import com.sungjujjang.shortgong.domain.auth.entity.Member;
+import com.sungjujjang.shortgong.domain.video.enums.VideoStatus;
+import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+
+@Entity
+@Getter
+@AllArgsConstructor
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "video")
+@DynamicInsert
+public class Video {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @OneToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "author_id", nullable = false)
+    private Member member;
+
+    @Column(nullable = true)
+    private String title;
+
+    @Column(nullable = true)
+    private String content;
+
+    @Column(nullable = false)
+    private String draft;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private VideoStatus status;
+
+    @Column(nullable = false)
+    @ColumnDefault("0")
+    private long viewCount;
+
+    @Column(nullable = false)
+    @ColumnDefault("0")
+    private long likeCount;
+}

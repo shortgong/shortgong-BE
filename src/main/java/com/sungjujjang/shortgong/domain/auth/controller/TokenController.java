@@ -18,7 +18,6 @@ import static com.sungjujjang.shortgong.domain.auth.Auth.REFRESHTOKEN_AGE;
 public class TokenController {
 
     private final TokenService tokenService;
-    private String refreshTokenCookieName = "refreshToken";
 
     @GetMapping("/exchange")
     public ApiResponse<AccessTokenResponse> exchangeToken(
