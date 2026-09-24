@@ -2,6 +2,7 @@ package com.sungjujjang.shortgong.domain.video.entity;
 
 import com.sungjujjang.shortgong.domain.auth.entity.Member;
 import com.sungjujjang.shortgong.domain.video.enums.VideoStatus;
+import com.sungjujjang.shortgong.global.entity.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -15,7 +16,7 @@ import org.hibernate.annotations.DynamicInsert;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "video")
 @DynamicInsert
-public class Video {
+public class Video extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
