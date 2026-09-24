@@ -3,6 +3,7 @@ package com.sungjujjang.shortgong.domain.video.entity;
 import com.sungjujjang.shortgong.domain.auth.entity.Member;
 import com.sungjujjang.shortgong.domain.video.enums.VideoStatus;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
@@ -19,7 +20,7 @@ public class Video {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "author_id", nullable = false)
     private Member member;
 
@@ -30,6 +31,7 @@ public class Video {
     private String content;
 
     @Column(nullable = false)
+    @Size(max = 2000)
     private String draft;
 
     @Enumerated(EnumType.STRING)
