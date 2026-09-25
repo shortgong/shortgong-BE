@@ -2,6 +2,7 @@ package com.sungjujjang.shortgong.domain.video.controller;
 
 import com.sungjujjang.shortgong.domain.video.dto.request.VideoCreateRequest;
 import com.sungjujjang.shortgong.domain.video.dto.response.VideoCreateResponse;
+import com.sungjujjang.shortgong.domain.video.dto.response.VideoResponse;
 import com.sungjujjang.shortgong.domain.video.service.VideoService;
 import com.sungjujjang.shortgong.global.anotation.currentUserId.CurrentUserId;
 import com.sungjujjang.shortgong.global.response.ApiResponse;
@@ -24,5 +25,13 @@ public class VideoController {
     ) {
         VideoCreateResponse videoCreateResponse = videoService.createVideo(userId, videoCreateRequest);
         return ApiResponse.ok(videoCreateResponse);
+    }
+
+    @GetMapping("/{videoId}")
+    public ApiResponse<VideoResponse> getVideo(
+            @PathVariable @RequestParam(required = true) long videoId
+    ) {
+        VideoResponse videoResponse = videoService.getVideo(videoId);
+        return ApiResponse.ok(videoResponse);
     }
 }

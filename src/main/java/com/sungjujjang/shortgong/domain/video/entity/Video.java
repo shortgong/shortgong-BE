@@ -26,13 +26,15 @@ public class Video extends BaseEntity {
     private Member member;
 
     @Column(nullable = true)
+    @Size(max = 200)
     private String title;
 
     @Column(nullable = true)
+    @Size(max = 200000)
     private String content;
 
     @Column(nullable = false)
-    @Size(max = 2000)
+    @Size(max = 20000)
     private String draft;
 
     @Enumerated(EnumType.STRING)

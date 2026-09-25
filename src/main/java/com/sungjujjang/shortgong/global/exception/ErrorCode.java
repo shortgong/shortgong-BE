@@ -16,6 +16,7 @@ public enum ErrorCode {
     NOT_FOUND(404, "NOT_FOUND", "리소스가 없습니다."),
     NOT_FOUND_EXCHANGE_TOKEN(404, "NOT_FOUND_EXCHANGE_TOKEN", "교환 코드가 존재하지 않습니다."),
     NOT_FOUND_USER(404, "NOT_FOUND_USER", "유저를 찾을 수 없습니다."),
+    VIDEO_NOT_FOUND(404, "VIDEO_NOT_FOUND", "영상이 없습니다."),
 
     INTERNAL_SERVER_ERR(500, "INTERNAL_SERVER_ERR", "서버 측 오류가 발생했습니다.");
 

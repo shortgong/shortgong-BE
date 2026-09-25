@@ -4,10 +4,12 @@ import com.sungjujjang.shortgong.domain.auth.entity.Member;
 import com.sungjujjang.shortgong.domain.auth.repository.MemberRepository;
 import com.sungjujjang.shortgong.domain.video.dto.request.VideoCreateRequest;
 import com.sungjujjang.shortgong.domain.video.dto.response.VideoCreateResponse;
+import com.sungjujjang.shortgong.domain.video.dto.response.VideoResponse;
 import com.sungjujjang.shortgong.domain.video.entity.Video;
 import com.sungjujjang.shortgong.domain.video.enums.VideoStatus;
 import com.sungjujjang.shortgong.domain.video.repository.VideoRepository;
 import com.sungjujjang.shortgong.global.exception.exceptions.NotFoundUserException;
+import com.sungjujjang.shortgong.global.exception.exceptions.VideoNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,5 +37,12 @@ public class VideoService {
         videoRepository.save(video);
 
         return new VideoCreateResponse(video.getStatus(), video.getId());
+    }
+
+    public VideoResponse getVideo(Long videoId) {
+        Video video = videoRepository.findById(videoId)
+                .orElseThrow(() -> VideoNotFoundException.EXCEPTION);
+
+        return VideoResponse.of(video);
     }
 }
