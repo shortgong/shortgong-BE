@@ -1,5 +1,6 @@
 package com.sungjujjang.shortgong.global.security;
 
+import com.sungjujjang.shortgong.global.security.cors.CorsConfig;
 import com.sungjujjang.shortgong.global.security.handler.CustomAccessDeniedHandler;
 import com.sungjujjang.shortgong.global.security.handler.CustomAuthenticationEntryPoint;
 import com.sungjujjang.shortgong.global.security.jwt.JwtAuthenticationFilter;
@@ -30,6 +31,9 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                .cors(cors -> cors.configurationSource(
+                        CorsConfig.corsConfigurationSource()
+                ))
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)

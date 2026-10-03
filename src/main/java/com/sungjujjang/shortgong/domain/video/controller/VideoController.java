@@ -29,7 +29,7 @@ public class VideoController {
 
     @GetMapping("/{videoId}")
     public ApiResponse<VideoResponse> getVideo(
-            @PathVariable @RequestParam(required = true) long videoId
+            @PathVariable(required = true) long videoId
     ) {
         VideoResponse videoResponse = videoService.getVideo(videoId);
         return ApiResponse.ok(videoResponse);

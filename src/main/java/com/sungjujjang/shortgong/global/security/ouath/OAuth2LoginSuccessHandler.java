@@ -72,7 +72,7 @@ public class OAuth2LoginSuccessHandler
 
         String key = tokenService.createExchangeToken(String.valueOf(userId));
         response.sendRedirect(
-    "http://localhost:8080/oauth/callback"
+    "http://localhost:5199/oauth/callback"
             + "?key=" + key
         );
     }
