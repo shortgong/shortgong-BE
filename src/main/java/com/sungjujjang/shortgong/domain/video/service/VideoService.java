@@ -21,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
-@Transactional
 public class VideoService {
 
     private final VideoRepository videoRepository;
@@ -56,6 +55,10 @@ public class VideoService {
         Video video = videoRepository.findById(videoId)
                 .orElseThrow(() -> VideoNotFoundException.EXCEPTION);
 
+        video.updateStatus(VideoStatus.PROCESSING);
+
+        videoRepository.save(video);
+
         if (video.getMember() != member) {
             throw ForbiddenVideoException.EXCEPTION;
         }
@@ -63,7 +66,7 @@ public class VideoService {
         VideoCreateQueue videoCreateQueue = new VideoCreateQueue(video.getId());
         rabbitTemplate.convertAndSend(routingKey, videoCreateQueue);
 
-        return new VideoCreateResponse(VideoStatus.PROCESSING, video.getId());
+        return new VideoCreateResponse(video.getStatus(), video.getId());
     }
 
     public VideoResponse getVideo(Long videoId) {

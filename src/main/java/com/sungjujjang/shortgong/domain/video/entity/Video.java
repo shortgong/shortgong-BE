@@ -48,4 +48,8 @@ public class Video extends BaseEntity {
     @Column(nullable = false)
     @ColumnDefault("0")
     private long likeCount;
+
+    public void updateStatus(VideoStatus videoStatus) {
+        this.status = videoStatus;
+    }
 }
