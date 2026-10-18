@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 public enum VideoStatus {
     PROCESSING("PROCESSING"),
     COMPLETED("COMPLETED"),
-    FAILED("FAILD");
+    FAILED("FAILED");
 
     private final String status;
 }
