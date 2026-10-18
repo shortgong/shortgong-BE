@@ -8,6 +8,7 @@ import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.JacksonJsonMessageConverter;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.amqp.autoconfigure.RabbitTemplateConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -71,9 +72,11 @@ public class createVideoQueueConfig {
     @Bean
     public RabbitTemplate rabbitTemplate(
             ConnectionFactory connectionFactory,
-            JacksonJsonMessageConverter converter
+            JacksonJsonMessageConverter converter,
+            RabbitTemplateConfigurer configurer
     ) {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
+        configurer.configure(rabbitTemplate, connectionFactory);
         rabbitTemplate.setMessageConverter(converter);
         return rabbitTemplate;
     }
