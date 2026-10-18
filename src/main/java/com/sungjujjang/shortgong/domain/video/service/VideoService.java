@@ -4,11 +4,13 @@ import com.sungjujjang.shortgong.domain.auth.entity.Member;
 import com.sungjujjang.shortgong.domain.auth.repository.MemberRepository;
 import com.sungjujjang.shortgong.domain.video.dto.queue.VideoCreateQueue;
 import com.sungjujjang.shortgong.domain.video.dto.request.VideoCreateRequest;
+import com.sungjujjang.shortgong.domain.video.dto.request.VideoReCreateRequest;
 import com.sungjujjang.shortgong.domain.video.dto.response.VideoCreateResponse;
 import com.sungjujjang.shortgong.domain.video.dto.response.VideoResponse;
 import com.sungjujjang.shortgong.domain.video.entity.Video;
 import com.sungjujjang.shortgong.domain.video.enums.VideoStatus;
 import com.sungjujjang.shortgong.domain.video.repository.VideoRepository;
+import com.sungjujjang.shortgong.global.exception.exceptions.ForbiddenVideoException;
 import com.sungjujjang.shortgong.global.exception.exceptions.NotFoundUserException;
 import com.sungjujjang.shortgong.global.exception.exceptions.VideoNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -45,6 +47,23 @@ public class VideoService {
         rabbitTemplate.convertAndSend(routingKey, videoCreateQueue);
 
         return new VideoCreateResponse(video.getStatus(), video.getId());
+    }
+
+    public VideoCreateResponse reCreateVideo(Long userId, long videoId) {
+        Member member = memberRepository.findById(userId)
+                .orElseThrow(() -> NotFoundUserException.EXCEPTION);
+
+        Video video = videoRepository.findById(videoId)
+                .orElseThrow(() -> VideoNotFoundException.EXCEPTION);
+
+        if (video.getMember() != member) {
+            throw ForbiddenVideoException.EXCEPTION;
+        }
+
+        VideoCreateQueue videoCreateQueue = new VideoCreateQueue(video.getId());
+        rabbitTemplate.convertAndSend(routingKey, videoCreateQueue);
+
+        return new VideoCreateResponse(VideoStatus.PROCESSING, video.getId());
     }
 
     public VideoResponse getVideo(Long videoId) {

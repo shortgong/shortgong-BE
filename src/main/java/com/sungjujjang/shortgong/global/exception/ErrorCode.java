@@ -12,6 +12,7 @@ public enum ErrorCode {
 
     FORBIDDEN(403, "FORBIDDEN", "권한이 없습니다."),
     FORBIDDEN_REFRESH_TOKEN(403, "FORBIDDEN_REFRESH_TOKEN", "refresh token이 없습니다"),
+    FORBIDDEN_VIDEO(403, "FORBIDDEN_VIDEO", "권한이 없습니다."),
 
     NOT_FOUND(404, "NOT_FOUND", "리소스가 없습니다."),
     NOT_FOUND_EXCHANGE_TOKEN(404, "NOT_FOUND_EXCHANGE_TOKEN", "교환 코드가 존재하지 않습니다."),

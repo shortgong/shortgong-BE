@@ -34,4 +34,13 @@ public class VideoController {
         VideoResponse videoResponse = videoService.getVideo(videoId);
         return ApiResponse.ok(videoResponse);
     }
+
+    @PatchMapping("/{videoId}")
+    public ApiResponse<VideoCreateResponse> reCreateVideo(
+            @PathVariable(required = true) long videoId,
+            @Parameter(hidden = true) @CurrentUserId Long userId
+    ) {
+        VideoCreateResponse videoResponse = videoService.reCreateVideo(userId, videoId);
+        return ApiResponse.ok(videoResponse);
+    }
 }
