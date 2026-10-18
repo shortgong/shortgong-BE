@@ -21,7 +21,7 @@ public class Video extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
     private Member member;
 
