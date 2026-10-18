@@ -1,4 +1,17 @@
 spring:
+  rabbitmq:
+    host: ${RABBITMQ_HOST}
+    port: ${RABBITMQ_PORT}
+    username: ${RABBITMQ_USER}
+    password: ${RABBITMQ_PASSWORD}
+    create_video:
+      queue: q.create_video
+      dlx: dlx.create_video
+      dlq: dlq.create_video
+    template:
+      retry:
+        enabled: true
+        initial-interval: 2s
   security:
     oauth2:
       client:
